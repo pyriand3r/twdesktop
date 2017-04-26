@@ -14,7 +14,7 @@ ipcRenderer.on('wikiSource', function (event, wikiFile) {
  * @listener
  * Inform if an error occurs on save
  */
-ipcRenderer.on('save:error', function (err) {
+ipcRenderer.on('save:error', function (event, err) {
     window.alert('Could not save wiki changes. Please see log application log for more information.');
 })
 
