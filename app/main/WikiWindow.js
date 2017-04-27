@@ -37,7 +37,7 @@ class WikiWindow {
         let me = this;
         if (this.window === null) {
             this.window = new BrowserWindow({
-                show: false,
+                show: config.openWikiOnStart,
                 width: 1024,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
