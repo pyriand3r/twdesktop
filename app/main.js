@@ -1,32 +1,13 @@
 const { app, Tray, Menu, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs');
 
+const WikiWindow = require('./main/WikiWindow.js');
 const config = require('../config');
 
 app.on('ready', function () {
 
-    let tiddlyWiki = new BrowserWindow({
-        show: config.openWikiOnStart
-    });
-
-    tiddlyWiki.loadURL('file://' + __dirname + '/wikiFrame/wikiFrame.html');
-
-    tiddlyWiki.on('ready-to-show', function () {
-        console.log('send source');
-        tiddlyWiki.webContents.send('wikiSource', config.wikiFile);
-    });
-
-    ipcMain.on('save', function (event, text) {
-
-        fs.writeFile(config.wikiFile, text, function (err) {
-            if (err !== null) {
-                console.warn('Could not save wiki file');
-                console.warn(err);
-
-                tiddlyWiki.webContents.send('save:error', err);
-            }
-        });
-    });
+    let wiki = new WikiWindow(config.wikiFile);
+    wiki.getWindow();
 
     trayIcon = '/icons/tiddlycat_light.png';
     if (config.trayIconColor === 'dark') {
@@ -38,10 +19,10 @@ app.on('ready', function () {
         {
             label: 'Show/Hide Wiki',
             click: function () {
-                if (tiddlyWiki.isVisible()) {
-                    tiddlyWiki.hide();
+                if (wiki.getWindow().isVisible()) {
+                    wiki.hide();
                 } else {
-                    tiddlyWiki.show();
+                    wiki.show();
                 }
             },
         },
