@@ -12,7 +12,7 @@ This [electron](https://www.electron.atom.io) app will live in your tray, provid
 [] Register multiple wiki files
 [] Create tray contextmenu entry for every registered wiki (show/hide)
 [] Define default wiki (show/hide on left-click of tray icon)
-[] Option for changing color of tray icon (light/dark)
+[x] Option for changing color of tray icon (light/dark)
 [] Option for keeping wiki open in background on close (instead of closing it completely)
 
 ## Roadmap
