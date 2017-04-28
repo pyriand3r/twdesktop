@@ -38,20 +38,21 @@ class WikiWindow {
         if (this.window === null) {
             this.window = new BrowserWindow({
                 show: config.openWikiOnStart,
-                width: 1024,
+                width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
                 icon: path.normalize(__dirname + '../icons/tiddlycat_light.png'),
                 autoHideMenuBar: true
             });
 
-            this.window.loadURL('file://' + __dirname + '/../renderer/wikiFrame/wikiFrame.html');
-
-            this.window.once('ready-to-show', function () {
+            this.window.once('show', function () {
                 me.window.webContents.send('wikiSource', me.file);
             });
 
+            this.window.loadURL('file://' + __dirname + '/../renderer/wikiFrame/wikiFrame.html');
+
             this._registerSaveListener();
+            this._registerCloseListener();
         }
         return this.window;
 
@@ -77,19 +78,30 @@ class WikiWindow {
         });
     }
 
+    _registerCloseListener() {
+        var me = this;
+        this.window.on('close', function () {
+            me.window = null;
+        });
+    }
+
     /**
      * @method
      * Show the window
      */
-    show () {
-        this.getWindow().show();
+    show() {
+        let window = this.getWindow();
+        setTimeout(function () {
+            window.show();
+         }, 250)
+
     }
 
     /**
      * @method
      * Hide the window
      */
-    hide () {
+    hide() {
         this.getWindow().hide();
     }
 }
