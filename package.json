@@ -5,7 +5,21 @@
   "main": "app/main.js",
   "scripts": {
     "dev": "export NODE_ENV=development; electron app/main.js",
-    "start": "electron app/main.js"
+    "start": "electron app/main.js",
+    "clean:linux": "rimraf dist/linux*",
+    "clean:osx": "rimraf dist/mac",
+    "clean:win": "rimraf dist/win*",
+    "clean": "npm run clean:linux && npm run clean:win && npm run clean:osx",
+    "pack:osx": "build --dir --mac",
+    "pack:win": "build --dir --win --x64",
+    "pack:linux": "build --dir --linux --x64",
+    "pack": "build --dir",
+    "build:osx": "build --mac",
+    "build:win": "build --win --x64 --ia32",
+    "build:linux": "build --linux --x64 --ia32;",
+    "build": "build -wlm --x64 --ia32",
+    "pre-build": "node createBundles.js",
+    "installdeps": "npm install --only=dev; cd app; npm install; cd .."
   },
   "keywords": [
     "wiki"
@@ -14,5 +28,20 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.6.6"
+  },
+  "build": {
+    "appId": "com.scriptaholic.twdesktop",
+    "productName": "TW Desktop",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": ["dmg"]
+    },
+    "linux": {
+      "category": "Utility",
+      "target": ["AppImage"]
+    },
+    "win": {
+      "target": ["nsis"]
+    }
   }
 }
