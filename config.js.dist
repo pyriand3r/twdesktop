@@ -22,5 +22,5 @@ module.exports = {
     /**
      * Hide wiki instead of closing it
      */
-    hideOnClose: true
+    hideOnClose: false
 }
