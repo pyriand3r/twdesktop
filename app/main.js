@@ -10,17 +10,21 @@ const config = require('../config');
  * Keep app running even if all windows are closed 
  */
 app.on('window-all-closed', function () {
-    //Do nothing here to prefent the app from closing
+    //Do nothing here to prevent the app from terminating
 });
 
 /**
  * @listener
+ * Basic startup on app ready event
  */
 app.on('ready', function () {
 
-    app.wiki = new WikiWindow(config.wikiFile);
+    app.tray = new TrayIcon();
 
-    let tray = new TrayIcon();
+    app.wiki = new WikiWindow(config.wikiFile);
+    if (config.openWikiOnStart === true) {
+        app.wiki.show();
+    }
 });
 
 
