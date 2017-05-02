@@ -6,7 +6,7 @@ module.exports = {
     /**
      * The wiki file to use
      */
-    wikiFile: __dirname + '/test.html',
+    wikiFile: __dirname + '/empty.html',
 
     /**
      * The color of the tray icon

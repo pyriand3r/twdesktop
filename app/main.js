@@ -1,9 +1,12 @@
 const { app } = require('electron');
 const fs = require('fs');
+const path = require('path');
+
+app.setAppPath(path.normalize(__dirname + '/../'));
 
 const WikiWindow = require('./main/WikiWindow');
 const TrayIcon = require('./main/TrayIcon')
-const config = require('../config');
+const config = require('./main/Configuration').getConfiguration();
 
 /**
  * Trigger for keeping windows hidden on close but be able

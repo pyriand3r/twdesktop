@@ -4,7 +4,7 @@ const { BrowserWindow, ipcMain, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
-const config = require('../../config');
+const config = require('./Configuration').getConfiguration();
 
 /**
  * @class WikiWindow
