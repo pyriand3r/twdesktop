@@ -16,7 +16,7 @@
     "pack": "build --dir",
     "build:osx": "build --mac",
     "build:win": "build --win --x64 --ia32",
-    "build:linux": "build --linux --x64 --ia32;",
+    "build:lin": "build --linux --x64 --ia32;",
     "build": "build -wlm --x64 --ia32",
     "pre-build": "node createBundles.js",
     "installdeps": "npm install --only=dev; cd app; npm install; cd .."
@@ -26,22 +26,30 @@
   ],
   "author": "pyriand3r <pyriand3r@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "electron": "^1.6.6"
-  },
+  "dependencies": {},
   "build": {
     "appId": "com.scriptaholic.twdesktop",
     "productName": "TW Desktop",
     "mac": {
       "category": "public.app-category.utilities",
-      "target": ["dmg"]
+      "target": [
+        "dmg"
+      ]
     },
     "linux": {
       "category": "Utility",
-      "target": ["AppImage"]
+      "target": [
+        "AppImage"
+      ]
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ]
     }
+  },
+  "devDependencies": {
+    "electron-builder": "^17.1.2",
+    "electron": "^1.6.6"
   }
 }

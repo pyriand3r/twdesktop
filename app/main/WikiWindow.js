@@ -41,7 +41,7 @@ class WikiWindow {
                 width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
-                icon: path.normalize(__dirname + '/../icons/tiddlycat_light.png'),
+                icon: path.normalize(__dirname + '/../icons/icon.png'),
                 autoHideMenuBar: true
             });
 
