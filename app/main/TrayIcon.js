@@ -49,6 +49,7 @@ class TrayIcon {
             {
                 label: 'Quit',
                 click: function () {
+                    app.onQuit = true;
                     app.quit();
                 }
             }

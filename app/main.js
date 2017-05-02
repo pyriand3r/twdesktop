@@ -6,6 +6,12 @@ const TrayIcon = require('./main/TrayIcon')
 const config = require('../config');
 
 /**
+ * Trigger for keeping windows hidden on close but be able
+ * to close them on app shutdown
+ */
+app.onQuit = false;
+
+/**
  * @listener
  * Keep app running even if all windows are closed 
  */

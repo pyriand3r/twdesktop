@@ -1,6 +1,6 @@
 'use strict';
 
-const { BrowserWindow, ipcMain } = require('electron');
+const { BrowserWindow, ipcMain, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
@@ -81,7 +81,7 @@ class WikiWindow {
     _registerCloseListener() {
         var me = this;
         this.window.on('close', function (event) {
-            if (config.hideOnClose === true) {
+            if (config.hideOnClose === true && app.onQuit === false) {
                 event.preventDefault();
                 me.hide();
             } else {
