@@ -17,5 +17,10 @@ module.exports = {
     /**
      * Open the wiki on startup
      */
-    openWikiOnStart: false
+    openWikiOnStart: false,
+
+    /**
+     * Hide wiki instead of closing it
+     */
+    hideOnClose: true
 }

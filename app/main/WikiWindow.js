@@ -80,8 +80,13 @@ class WikiWindow {
 
     _registerCloseListener() {
         var me = this;
-        this.window.on('close', function () {
-            me.window = null;
+        this.window.on('close', function (event) {
+            if (config.hideOnClose === true) {
+                event.preventDefault();
+                me.hide();
+            } else {
+                me.window = null;
+            }
         });
     }
 
@@ -93,7 +98,7 @@ class WikiWindow {
         let window = this.getWindow();
         setTimeout(function () {
             window.show();
-         }, 250)
+        }, 250)
 
     }
 
