@@ -19,7 +19,7 @@ class WikiWindow {
      */
     constructor(file) {
         if (!fs.existsSync(file)) {
-            throw new Error('File >' + path + '< can not be accessed');
+            throw new Error('File >' + file + '< can not be accessed');
         }
 
         this.file = file;
