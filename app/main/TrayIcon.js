@@ -32,29 +32,33 @@ class TrayIcon {
      * Set the context menu of the tray icon
      */
     setContextMenu() {
-        this.contextMenu = Menu.buildFromTemplate([
-            {
-                label: 'Show/Hide Wiki',
+
+        let menu = [];
+        for (let i = 0; i < app.wikis.length; i++) {
+            let wikiWindow = app.wikis[i];
+            menu.push({
+                label: wikiWindow.getLabel(),
                 click: function () {
-                    if (app.wiki.getWindow().isVisible()) {
-                        app.wiki.hide();
+                    if (wikiWindow.getWindow().isVisible()) {
+                        wikiWindow.hide();
                     } else {
-                        app.wiki.show();
+                        wikiWindow.show();
                     }
                 },
-            },
-            {
-                type: 'separator'
-            },
-            {
+            })
+        }
+        menu.push({
+            type: 'separator'
+        });
+        menu.push({
                 label: 'Quit',
                 click: function () {
                     app.onQuit = true;
                     app.quit();
                 }
-            }
-        ]);
+            });
 
+        this.contextMenu = Menu.buildFromTemplate(menu);
         this.tray.setContextMenu(this.contextMenu);
     }
 }

@@ -4,9 +4,11 @@
 module.exports = {
 
     /**
-     * The wiki file to use
+     * The wiki files to use
      */
-    wikiFile: __dirname + '/empty.html',
+    wikiFile: [
+        __dirname + '/empty.html'
+    ],
 
     /**
      * The color of the tray icon

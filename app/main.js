@@ -28,12 +28,13 @@ app.on('window-all-closed', function () {
  */
 app.on('ready', function () {
 
-    app.tray = new TrayIcon();
+    app.wikis = [];
 
-    app.wiki = new WikiWindow(config.wikiFile);
-    if (config.openWikiOnStart === true) {
-        app.wiki.show();
+    for (let i = 0; i < config.wikiFiles.length; i++) {
+        app.wikis.push(new WikiWindow(config.wikiFiles[i]));
     }
+
+    app.tray = new TrayIcon();
 });
 
 

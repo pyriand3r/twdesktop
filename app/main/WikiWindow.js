@@ -109,6 +109,14 @@ class WikiWindow {
     hide() {
         this.getWindow().hide();
     }
+
+    /**
+     * @method
+     * Return the label
+     */
+    getLabel() {
+        return this.label;
+    }
 }
 
 module.exports = WikiWindow;
