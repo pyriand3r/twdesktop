@@ -68,8 +68,26 @@ class TrayIcon {
                     }
                 }
             });
+
+            if (wikiWindow.getLabel() === defaultWiki) {
+                this._setDefaultWiki(wikiWindow);
+            }
         }
         return wikis;
+    }
+
+    /** 
+     * @method
+     * Set listener for the default wiki. Simple click on tray icon opens and closes it
+     */
+    _setDefaultWiki(wikiWindow) {
+        this.tray.on('click', function () {
+            if (wikiWindow.getWindow().isVisible() === true) {
+                wikiWindow.hide();
+            } else {
+                wikiWindow.show();
+            }
+        });
     }
 }
 
