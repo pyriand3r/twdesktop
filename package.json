@@ -16,7 +16,7 @@
     "pack": "build --dir",
     "build:osx": "build --mac",
     "build:win": "build --win --x64 --ia32",
-    "build:lin": "build --linux --x64 --ia32;",
+    "build:lin": "build --linux --x64",
     "build": "build -wlm --x64 --ia32",
     "pre-build": "node createBundles.js",
     "installdeps": "npm install --only=dev; cd app; npm install; cd .."

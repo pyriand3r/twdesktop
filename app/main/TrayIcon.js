@@ -3,7 +3,7 @@
 const { app, Tray, Menu } = require('electron');
 const path = require('path');
 
-const config = require('./Configuration').getConfiguration();
+const config = require('./Configuration');
 
 
 /**
@@ -18,7 +18,7 @@ class TrayIcon {
      */
     constructor() {
         this.icon = '/../icons/tiddlycat_light.png';
-        if (config.trayIconColor === 'dark') {
+        if (config.getTrayIconColor() === 'dark') {
             this.icon = '/../icons/tiddlycat_dark.png';
         }
         this.tray = new Tray(path.normalize(__dirname + this.icon));
@@ -32,30 +32,44 @@ class TrayIcon {
      * Set the context menu of the tray icon
      */
     setContextMenu() {
-        this.contextMenu = Menu.buildFromTemplate([
-            {
-                label: 'Show/Hide Wiki',
-                click: function () {
-                    if (app.wiki.getWindow().isVisible()) {
-                        app.wiki.hide();
-                    } else {
-                        app.wiki.show();
-                    }
-                },
-            },
-            {
-                type: 'separator'
-            },
-            {
-                label: 'Quit',
-                click: function () {
-                    app.onQuit = true;
-                    app.quit();
-                }
+        let wikis = this._getWikiEntries();
+        wikis.push({
+            type: 'separator'
+        });
+        wikis.push({
+            label: 'Quit',
+            click: function () {
+                app.onQuit = true;
+                app.quit();
             }
-        ]);
+        });
+        this.contextMenu = Menu.buildFromTemplate(wikis);
 
         this.tray.setContextMenu(this.contextMenu);
+    }
+
+    /**
+     * @method
+     * Return context menu entries for 
+     */
+    _getWikiEntries() {
+        let wikis = [];
+        let defaultWiki = config.getDefaultWiki();
+
+        for (let i = 0; i < app.wikis.length; i++) {
+            let wikiWindow = app.wikis[i];
+            wikis.push({
+                label: wikiWindow.getLabel(),
+                click: function () {
+                    if (wikiWindow.getWindow().isVisible() === true) {
+                        wikiWindow.hide();
+                    } else {
+                        wikiWindow.show();
+                    }
+                }
+            });
+        }
+        return wikis;
     }
 }
 

@@ -10,5 +10,9 @@
     "wiki"
   ],
   "author": "pyriand3r <pyriand3r@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^3.0.1",
+    "winston": "^2.3.1"
+  }
 }

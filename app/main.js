@@ -1,12 +1,32 @@
 const { app } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const winston = require('winston');
 
-app.setAppPath(path.normalize(__dirname + '/../'));
+app.setAppPath(path.normalize(__dirname));
 
+/**
+ * Configure winston logger
+ */
+let loggingPath = app.getPath('appData') + '/';
+let debugLevel = 'warning';
+if (process.env.NODE_ENV === 'development') {
+    loggingPath = app.getAppPath() + '/';
+    debugLevel = 'debug';
+}
+
+winston.configure({
+    transports: [
+      new (winston.transports.File)({ 
+        filename:  loggingPath + 'twdesktop.log',
+        level: debugLevel
+      })
+    ]
+  });
+
+const config = require('./main/Configuration');
 const WikiWindow = require('./main/WikiWindow');
 const TrayIcon = require('./main/TrayIcon')
-const config = require('./main/Configuration').getConfiguration();
 
 /**
  * Trigger for keeping windows hidden on close but be able
@@ -28,12 +48,16 @@ app.on('window-all-closed', function () {
  */
 app.on('ready', function () {
 
-    app.tray = new TrayIcon();
+    config.initializeDataDirectory();
 
-    app.wiki = new WikiWindow(config.wikiFile);
-    if (config.openWikiOnStart === true) {
-        app.wiki.show();
+    app.wikis = [];
+
+    let wikiFiles = config.getWikiFiles();
+    for (let i = 0; i < wikiFiles.length; i++) {
+        app.wikis.push(new WikiWindow(wikiFiles[i]));
     }
+
+    app.trayIcon = new TrayIcon();
 });
 
 

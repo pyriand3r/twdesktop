@@ -4,7 +4,7 @@ const { BrowserWindow, ipcMain, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
-const config = require('./Configuration').getConfiguration();
+const config = require('./Configuration');
 
 /**
  * @class WikiWindow
@@ -37,7 +37,7 @@ class WikiWindow {
         let me = this;
         if (this.window === null) {
             this.window = new BrowserWindow({
-                show: config.openWikiOnStart,
+                show: config.getOpenWikiOnStart(),
                 width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
@@ -65,9 +65,10 @@ class WikiWindow {
      * @private
      */
     _registerSaveListener() {
+        let me = this;
         ipcMain.on('save', function (event, text) {
 
-            fs.writeFile(config.wikiFile, text, function (err) {
+            fs.writeFile(me.file, text, function (err) {
                 if (err !== null) {
                     console.warn('Could not save wiki file');
                     console.warn(err);
@@ -81,7 +82,7 @@ class WikiWindow {
     _registerCloseListener() {
         var me = this;
         this.window.on('close', function (event) {
-            if (config.hideOnClose === true && app.onQuit === false) {
+            if (config.getHideOnClose() === true && app.onQuit === false) {
                 event.preventDefault();
                 me.hide();
             } else {
@@ -98,7 +99,7 @@ class WikiWindow {
         let window = this.getWindow();
         setTimeout(function () {
             window.show();
-        }, 250)
+        }, 500)
 
     }
 
@@ -108,6 +109,10 @@ class WikiWindow {
      */
     hide() {
         this.getWindow().hide();
+    }
+
+    getLabel() {
+        return this.label;
     }
 }
 
