@@ -8,6 +8,7 @@ ipcRenderer.on('wikiSource', function (event, wikiFile) {
     console.log('set wikiSource', wikiFile);
     let iFrame = document.getElementById('iframe');
     iFrame.src = wikiFile;
+    ipcRenderer.send('wikiSource:set');
 });
 
 /**
@@ -48,10 +49,8 @@ let saverObj = {
 let addSaver = function () {
     let iframe = document.getElementById('iframe').contentWindow;
     if (iframe.$tw && iframe.$tw.saverHandler && iframe.$tw.saverHandler.savers) {
-        console.log('set saver');
         iframe.$tw.saverHandler.savers.push(saverObj);
     } else {
-        console.log('retry');
         setTimeout(addSaver, 1000);
     }
 }

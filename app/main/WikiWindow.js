@@ -41,18 +41,19 @@ class WikiWindow {
                 width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
-                icon: path.normalize(__dirname + '/../icons/icon.png'),
+                icon: path.normalize(__dirname + '/../icons/icon.svg'),
                 autoHideMenuBar: true
-            });
-
-            this.window.once('show', function () {
-                me.window.webContents.send('wikiSource', me.file);
             });
 
             this.window.loadURL('file://' + __dirname + '/../renderer/wikiFrame/wikiFrame.html');
 
+            this._registerSourceSetListener();
             this._registerSaveListener();
             this._registerCloseListener();
+
+            this.setSourceInterval = setInterval(function () {
+                me.window.webContents.send('wikiSource', me.file);
+            }, 500);
         }
         return this.window;
 
@@ -79,6 +80,12 @@ class WikiWindow {
         });
     }
 
+    /**
+     * @method
+     * Register listener on window close event to override shutdown if configured
+     * 
+     * @private
+     */
     _registerCloseListener() {
         var me = this;
         this.window.on('close', function (event) {
@@ -93,14 +100,23 @@ class WikiWindow {
 
     /**
      * @method
+     * Register listener to stop set source interval after source is set
+     * 
+     * @private
+     */
+    _registerSourceSetListener() {
+        let me = this;
+        ipcMain.once('wikiSource:set', function () {
+            clearInterval(me.setSourceInterval);
+        });
+    }
+
+    /**
+     * @method
      * Show the window
      */
     show() {
-        let window = this.getWindow();
-        setTimeout(function () {
-            window.show();
-        }, 500)
-
+        this.getWindow().show();
     }
 
     /**
