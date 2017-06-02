@@ -2,4 +2,5 @@ node_modules
 .sync
 dist
 config.js
-*.log
+*.log 
+**/bundle.js
