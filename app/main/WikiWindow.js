@@ -53,7 +53,7 @@ class WikiWindow {
             this._registerCloseListener();
 
             if (config.openLinksExternal === true) {
-            this._registerOpenUrlListener();
+                this._registerOpenUrlListener();
             }
 
             this.setSourceInterval = setInterval(function () {
@@ -76,9 +76,7 @@ class WikiWindow {
 
             fs.writeFile(me.file, text, function (err) {
                 if (err !== null) {
-                    console.warn('Could not save wiki file');
-                    console.warn(err);
-
+                    winston.log('warning', 'Could not save wiki file', { data: err });
                     tiddlyWiki.webContents.send('save:error', err);
                 }
             });
@@ -117,7 +115,10 @@ class WikiWindow {
     }
 
     /**
+     * @method
      * Register listener to open links in systems default browser 
+     * 
+     * @private
      */
     _registerOpenUrlListener() {
         let me = this;
@@ -126,11 +127,13 @@ class WikiWindow {
     }
 
     /**
+     * @method
      * Opens clicked link in the systems default browser, if the url is different to
      * url opened in electron browser window
      * 
      * @param {Event} event The event
      * @param {string} url The url that was clicked
+     * @private
      */
     _handleRedirect(event, url) {
         if (url != this.window.webContents.getURL()) {

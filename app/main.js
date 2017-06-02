@@ -17,12 +17,12 @@ if (process.env.NODE_ENV === 'development') {
 
 winston.configure({
     transports: [
-      new (winston.transports.File)({ 
-        filename:  loggingPath + 'twdesktop.log',
-        level: debugLevel
-      })
+        new (winston.transports.File)({
+            filename: loggingPath + 'twdesktop.log',
+            level: debugLevel
+        })
     ]
-  });
+});
 
 const Configuration = require('./main/Configuration');
 const WikiWindow = require('./main/WikiWindow');
@@ -55,7 +55,15 @@ app.on('ready', function () {
 
     let wikiFiles = config.wikiFiles;
     for (let i = 0; i < wikiFiles.length; i++) {
-        app.wikis.push(new WikiWindow(wikiFiles[i]));
+        try {
+            let wikiWindow = new WikiWindow(wikiFiles[i]);
+            app.wikis.push(wikiWindow);
+        } catch (error) {
+            winston.log('error', 'Wiki could not be added', {
+                wikiFile: wikiFiles[i],
+                error: error.message
+            });
+        }
     }
 
     app.trayIcon = new TrayIcon();
