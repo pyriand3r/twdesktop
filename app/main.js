@@ -28,6 +28,7 @@ const Configuration = require('./main/Configuration');
 const WikiWindow = require('./main/WikiWindow');
 const TrayIcon = require('./main/TrayIcon')
 const config = Configuration.getConfig();
+const SettingsWindow = require('./main/SettingsWindow');
 
 /**
  * Trigger for keeping windows hidden on close but be able
@@ -67,6 +68,7 @@ app.on('ready', function () {
     }
 
     app.trayIcon = new TrayIcon();
+    app.settings = new SettingsWindow();
 });
 
 

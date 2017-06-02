@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^3.0.1",
+    "vue": "^2.3.3",
     "winston": "^2.3.1"
   }
 }

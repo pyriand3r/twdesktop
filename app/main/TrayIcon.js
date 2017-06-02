@@ -37,6 +37,16 @@ class TrayIcon {
             type: 'separator'
         });
         wikis.push({
+            label: 'Settings',
+            click: function () {
+                if (app.settings.getWindow().isVisible() === true) {
+                    app.settings.hide();
+                } else {
+                    app.settings.show();
+                }
+            }
+        })
+        wikis.push({
             label: 'Quit',
             click: function () {
                 app.onQuit = true;
