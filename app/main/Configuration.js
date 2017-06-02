@@ -26,6 +26,7 @@ class Configuration {
     }
 
     /**
+     * @method
      * Return the configuration
      * Lazy
      */

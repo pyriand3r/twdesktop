@@ -50,7 +50,9 @@ class TrayIcon {
 
     /**
      * @method
-     * Return context menu entries for 
+     * Return list of menu entries for every single registered wiki file
+     * 
+     * @private
      */
     _getWikiEntries() {
         let wikis = [];
@@ -78,6 +80,8 @@ class TrayIcon {
     /** 
      * @method
      * Set listener for the default wiki. Simple click on tray icon opens and closes it
+     * 
+     * @private
      */
     _setDefaultWiki(wikiWindow) {
         this.tray.on('click', function () {
