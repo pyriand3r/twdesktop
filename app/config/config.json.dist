@@ -1,6 +1,6 @@
 {
     "wikiFiles": [],
-    "trayIconColor": "light",
+    "darkTrayIcon": false,
     "openWikiOnStart": false,
     "hideOnClose": false,
     "openLinksExternal": true,

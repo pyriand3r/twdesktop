@@ -18,7 +18,7 @@ class TrayIcon {
      */
     constructor() {
         this.icon = '/../icons/tiddlycat_light.png';
-        if (config.trayIconColor === 'dark') {
+        if (config.darkTrayIcon === true) {
             this.icon = '/../icons/tiddlycat_dark.png';
         }
         this.tray = new Tray(path.normalize(__dirname + this.icon));
