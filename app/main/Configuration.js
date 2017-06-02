@@ -32,9 +32,25 @@ class Configuration {
      */
     getConfig() {
         if (this.config === null) {
-            this._setConfiguration();
+            this._getConfiguration();
         }
         return this.config;
+    }
+
+    /**
+     * @method
+     * Sets the key in config to the value and persists it to disk
+     * @param {string} key The config key to set
+     * @param {string|int|bool|array} value The value to set
+     */
+    setConfigKey(key, value) {
+        let config = this.getConfig();
+        if (!config.hasOwnProperty(key)) {
+            throw new Error('Key ' + key + ' is not present in current configuraiton.');
+        }
+
+        config[key] = value;
+        this._persistConfig(config);
     }
 
     /**
@@ -54,7 +70,7 @@ class Configuration {
      *
      * @private
      */
-    _setConfiguration() {
+    _getConfiguration() {
         logger.debug('No config set. fetching...');
         this.config = require(this._getDataPath() + '/' + CONFIG_FILE_NAME);
         logger.debug(this.config);
@@ -85,6 +101,22 @@ class Configuration {
         if (!fs.existsSync(path + '/' + LOG_FILE_NAME)) {
             fs.closeSync(fs.openSync(path + '/' + LOG_FILE_NAME, 'w'));
         }
+    }
+
+    /**
+     * @method
+     * Persist the given config to disk
+     * 
+     * @param {{}} config
+     * @return {null|Error} 
+     */
+    _persistConfig(config) {
+        let stringified = JSON.stringify(config, null, '\t');
+        fs.writeFile(this._getDataPath() + '/' + CONFIG_FILE_NAME, stringified, 'utf8', function (err) {
+            if (err) {
+                return err;
+            }
+        });
     }
 }
 
