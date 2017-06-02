@@ -3,8 +3,9 @@
 const { BrowserWindow, ipcMain, app } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const winston = require('winston');
 
-const config = require('./Configuration');
+const config = require('./Configuration').getConfig();
 
 /**
  * @class WikiWindow
@@ -37,11 +38,11 @@ class WikiWindow {
         let me = this;
         if (this.window === null) {
             this.window = new BrowserWindow({
-                show: config.getOpenWikiOnStart(),
+                show: config.openWikiOnStart,
                 width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
-                icon: path.normalize(__dirname + '/../icons/icon.svg'),
+                icon: path.normalize(__dirname + '/../icons/icon_48.png'),
                 autoHideMenuBar: true
             });
 
@@ -50,6 +51,10 @@ class WikiWindow {
             this._registerSourceSetListener();
             this._registerSaveListener();
             this._registerCloseListener();
+
+            if (config.openLinksExternal === true) {
+            this._registerOpenUrlListener();
+            }
 
             this.setSourceInterval = setInterval(function () {
                 me.window.webContents.send('wikiSource', me.file);
@@ -89,7 +94,7 @@ class WikiWindow {
     _registerCloseListener() {
         var me = this;
         this.window.on('close', function (event) {
-            if (config.getHideOnClose() === true && app.onQuit === false) {
+            if (config.hideOnClose === true && app.onQuit === false) {
                 event.preventDefault();
                 me.hide();
             } else {
@@ -109,6 +114,30 @@ class WikiWindow {
         ipcMain.once('wikiSource:set', function () {
             clearInterval(me.setSourceInterval);
         });
+    }
+
+    /**
+     * Register listener to open links in systems default browser 
+     */
+    _registerOpenUrlListener() {
+        let me = this;
+        this.window.webContents.on('will-navigate', me._handleRedirect.bind(me));
+        this.window.webContents.on('new-window', me._handleRedirect.bind(me));
+    }
+
+    /**
+     * Opens clicked link in the systems default browser, if the url is different to
+     * url opened in electron browser window
+     * 
+     * @param {Event} event The event
+     * @param {string} url The url that was clicked
+     */
+    _handleRedirect(event, url) {
+        if (url != this.window.webContents.getURL()) {
+            event.preventDefault()
+            require('electron').shell.openExternal(url)
+        }
+
     }
 
     /**

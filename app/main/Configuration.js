@@ -26,6 +26,17 @@ class Configuration {
     }
 
     /**
+     * Return the configuration
+     * Lazy
+     */
+    getConfig() {
+        if (this.config === null) {
+            this._setConfiguration();
+        }
+        return this.config;
+    }
+
+    /**
      * @method
      * Getter wikiFiles
      * 
