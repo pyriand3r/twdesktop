@@ -26,119 +26,14 @@ class Configuration {
     }
 
     /**
-     * @method
-     * Getter wikiFiles
-     * 
-     * @return string[]
+     * Return the configuration
+     * Lazy
      */
-    getWikiFiles() {
+    getConfig() {
         if (this.config === null) {
             this._setConfiguration();
         }
-        return this.config.wikiFiles;
-    }
-
-    /**
-     * @method
-     * Setter wikiFiles
-     * 
-     * @param {array} fileList 
-     */
-    setWikiFiles(fileList) {
-        this.config.wikiFiles = fileList;
-    }
-
-    /**
-     * @method
-     * Getter trayIconColor
-     * 
-     * @return string
-     */
-    getTrayIconColor() {
-        if (this.config === null) {
-            this._setConfiguration();
-        }
-        return this.config.trayIconColor;
-    }
-
-    /**
-     * @method
-     * Setter trayIconColor
-     * 
-     * @param {string} trayIconColor
-     */
-    setTrayIconColor(trayIconColor) {
-        this.config.trayIconColor = trayIconColor;
-    }
-
-    /**
-     * @method
-     * Getter openWikiOnStart
-     * 
-     * @return boolean
-     */
-    getOpenWikiOnStart() {
-        if (this.config === null) {
-            this._setConfiguration();
-        }
-        return this.config.openWikiOnStart;
-    }
-
-    /**
-     * @method
-     * Setter openWikiOnStart
-     * 
-     * @param {boolean} openWikiOnStart 
-     */
-    setOpenWikiOnStart(openWikiOnStart) {
-        this.config.openWikiOnStart = openWikiOnStart;
-    }
-
-    /**
-     * @method
-     * Getter hideOnClose
-     * 
-     * @return boolean
-     */
-    getHideOnClose() {
-        if (this.config === null) {
-            this._setConfiguration();
-        }
-        return this.config.hideOnClose;
-    }
-
-
-    /**
-     * @method
-     * Setter hideOnClose
-     * 
-     * @param {boolean} hideOnClose 
-     */
-    setHideOnClose(hideOnClose) {
-        this.config.hideOnClose = hideOnClose;
-    }
-
-    /**
-     * @method
-     * Setter defaultWiki
-     * 
-     * @param {string} defaultWiki 
-     */
-    setDefaultWiki(defaultWiki) {
-        this.config.defaultWiki = defaultWiki;
-    }
-
-    /**
-     * @method
-     * Getter defaultWiki
-     * 
-     * @return {string}
-     */
-    getDefaultWiki() {
-        if (this.config === null) {
-            this._setConfiguration();
-        }
-        return this.config.defaultWiki;
+        return this.config;
     }
 
     /**

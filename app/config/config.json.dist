@@ -3,5 +3,6 @@
     "trayIconColor": "light",
     "openWikiOnStart": false,
     "hideOnClose": false,
+    "openLinksExternal": true,
     "defaultWiki": ""
 }

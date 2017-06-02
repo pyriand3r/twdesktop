@@ -3,7 +3,7 @@
 const { app, Tray, Menu } = require('electron');
 const path = require('path');
 
-const config = require('./Configuration');
+const config = require('./Configuration').getConfig();
 
 
 /**
@@ -18,7 +18,7 @@ class TrayIcon {
      */
     constructor() {
         this.icon = '/../icons/tiddlycat_light.png';
-        if (config.getTrayIconColor() === 'dark') {
+        if (config.trayIconColor === 'dark') {
             this.icon = '/../icons/tiddlycat_dark.png';
         }
         this.tray = new Tray(path.normalize(__dirname + this.icon));
@@ -54,7 +54,6 @@ class TrayIcon {
      */
     _getWikiEntries() {
         let wikis = [];
-        let defaultWiki = config.getDefaultWiki();
 
         for (let i = 0; i < app.wikis.length; i++) {
             let wikiWindow = app.wikis[i];
@@ -69,7 +68,7 @@ class TrayIcon {
                 }
             });
 
-            if (wikiWindow.getLabel() === defaultWiki) {
+            if (wikiWindow.getLabel() === config.defaultWiki) {
                 this._setDefaultWiki(wikiWindow);
             }
         }

@@ -24,9 +24,10 @@ winston.configure({
     ]
   });
 
-const config = require('./main/Configuration');
+const Configuration = require('./main/Configuration');
 const WikiWindow = require('./main/WikiWindow');
 const TrayIcon = require('./main/TrayIcon')
+const config = Configuration.getConfig();
 
 /**
  * Trigger for keeping windows hidden on close but be able
@@ -48,11 +49,11 @@ app.on('window-all-closed', function () {
  */
 app.on('ready', function () {
 
-    config.initializeDataDirectory();
+    Configuration.initializeDataDirectory();
 
     app.wikis = [];
 
-    let wikiFiles = config.getWikiFiles();
+    let wikiFiles = config.wikiFiles;
     for (let i = 0; i < wikiFiles.length; i++) {
         app.wikis.push(new WikiWindow(wikiFiles[i]));
     }
