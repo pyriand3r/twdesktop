@@ -54,7 +54,7 @@ app.on('ready', function () {
 
     let wikiFiles = config.getWikiFiles();
     for (let i = 0; i < wikiFiles.length; i++) {
-        app.wikis.push(new WikiWindow(wikiFiles[i]));
+        app.wikis.push(new WikiWindow(wikiFiles[i], i));
     }
 
     app.trayIcon = new TrayIcon();
