@@ -1,6 +1,6 @@
 'use strict';
 
-const { BrowserWindow, ipcMain, app } = require('electron');
+const { BrowserWindow, ipcMain, app, shell } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const winston = require('winston');
@@ -77,7 +77,7 @@ class WikiWindow {
             fs.writeFile(me.file, text, function (err) {
                 if (err !== null) {
                     winston.log('warning', 'Could not save wiki file', { data: err });
-                    tiddlyWiki.webContents.send('save:error', err);
+                    this.window.webContents.send('save:error', err);
                 }
             });
         });
@@ -136,9 +136,10 @@ class WikiWindow {
      * @private
      */
     _handleRedirect(event, url) {
+        console.log(event);
         if (url != this.window.webContents.getURL()) {
             event.preventDefault()
-            require('electron').shell.openExternal(url)
+            shell.openExternal(url)
         }
 
     }

@@ -1,10 +1,15 @@
 <template>
     <div class="container">
-        <b-alert show>
-            Default Alert
-        </b-alert>
+        <wiki-files></wiki-files>
     </div>
 </template>
 
 <script>
+    import WikiFiles from './components/WikiFiles.vue';
+
+    export default {
+        components: {
+            WikiFiles
+        }
+    }
 </script>
