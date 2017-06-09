@@ -57,7 +57,7 @@ app.on('ready', function () {
     let wikiFiles = config.wikiFiles;
     for (let i = 0; i < wikiFiles.length; i++) {
         try {
-            let wikiWindow = new WikiWindow(wikiFiles[i]);
+            let wikiWindow = new WikiWindow(wikiFiles[i], i);
             app.wikis.push(wikiWindow);
         } catch (error) {
             winston.log('error', 'Wiki could not be added', {

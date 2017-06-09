@@ -18,11 +18,12 @@ class WikiWindow {
      * @constructor
      * @param {string} path The file path of the wiki file
      */
-    constructor(file) {
+    constructor(file, id) {
         if (!fs.existsSync(file)) {
             throw new Error('File >' + file + '< can not be accessed');
         }
 
+        this.id = id;
         this.file = file;
         this.label = path.basename(file, '.html')
         this.window = null;
@@ -57,11 +58,43 @@ class WikiWindow {
             }
 
             this.setSourceInterval = setInterval(function () {
-                me.window.webContents.send('wikiSource', me.file);
+                me.window.webContents.send('wikiSource', me.file, me.getId());
             }, 500);
         }
         return this.window;
+    }
 
+    /**
+     * @method
+     * Return the label
+     */
+    getLabel() {
+        return this.label;
+    }
+
+    /**
+     * @method
+     * Return the id of the wiki
+     * @return {int} The id
+     */
+    getId() {
+        return this.id;
+    }
+
+    /**
+     * @method
+     * Show the window
+     */
+    show() {
+        this.getWindow().show();
+    }
+
+    /**
+     * @method
+     * Hide the window
+     */
+    hide() {
+        this.getWindow().hide();
     }
 
     /**
@@ -72,7 +105,7 @@ class WikiWindow {
      */
     _registerSaveListener() {
         let me = this;
-        ipcMain.on('save', function (event, text) {
+        ipcMain.on('save:' + this.getId(), function (event, text) {
 
             fs.writeFile(me.file, text, function (err) {
                 if (err !== null) {

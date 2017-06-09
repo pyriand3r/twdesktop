@@ -4,10 +4,10 @@ const { ipcRenderer } = require('electron');
  * @listener
  * Set wiki source file
  */
-ipcRenderer.on('wikiSource', function (event, wikiFile) {
-    console.log('set wikiSource', wikiFile);
+ipcRenderer.on('wikiSource', function (event, wikiFile, id) {
     let iFrame = document.getElementById('iframe');
     iFrame.src = wikiFile;
+    iFrame.sourceId = id;
     ipcRenderer.send('wikiSource:set');
 });
 
@@ -25,7 +25,7 @@ ipcRenderer.on('save:error', function (event, err) {
  */
 let saverObj = {
     info: {
-        name: "tiddly-electron-desktop-saver",
+        name: "twdesktop-saver",
         priority: 5000,
         capabilities: ["save", "autosave"]
     },
@@ -36,7 +36,8 @@ let saverObj = {
      * @param {string} text The tiddly wiki file content to save
      */
     save: function (text) {
-        ipcRenderer.send('save', text);
+        let iFrame = document.getElementById('iframe');
+        ipcRenderer.send('save:' + iFrame.sourceId, text);
         return true;
     }
 };
