@@ -4,10 +4,14 @@ const { BrowserWindow } = require('electron')
 const path = require('path')
 
 /**
- * 
+ * @class SettingsWindow
+ * The settings window of the app
  */
 class SettingsWindow {
 
+    /**
+     * @constructor
+     */
     constructor() {
         this.window = null
     }
