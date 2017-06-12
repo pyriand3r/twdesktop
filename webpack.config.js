@@ -31,6 +31,11 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.ExternalsPlugin('commonjs', [
+            'electron'
+        ])
+    ],
     resolve: {
         alias: {
             'vue$': 'vue/dist/vue.common.js'

@@ -110,6 +110,7 @@ class WikiWindow {
             fs.writeFile(me.file, text, function (err) {
                 if (err !== null) {
                     winston.log('warning', 'Could not save wiki file', { data: err });
+                    // todo: refactor to returnValue
                     this.window.webContents.send('save:error', err);
                 }
             });
