@@ -51,6 +51,8 @@ class Configuration {
 
         config[key] = value;
         this._persistConfig(config);
+
+        app.trayIcon.update();
     }
 
     /**
