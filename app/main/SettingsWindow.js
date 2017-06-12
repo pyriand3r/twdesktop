@@ -20,7 +20,12 @@ class SettingsWindow {
     getWindow() {
         if (this.window === null) {
             this.window = new BrowserWindow({
-                show: false
+                show: false,
+                width: 1000,
+                height: 500,
+                autoHideMenuBar: true,
+                title: 'twdesktop - Settings'
+
             });
             this.window.loadURL('file://' + __dirname + '/../renderer/settings/index.html');
         }

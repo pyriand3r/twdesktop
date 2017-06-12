@@ -18,7 +18,12 @@
 </template>
 
 <style>
-
+    .settings {
+        max-width: 50%;
+        height: 100%;
+        padding: 10px 0;
+        float: right;
+    }
 </style>
 
 <script>
@@ -26,11 +31,6 @@
 
     export default {
         props: [ 'config' ],
-        data: function () {
-            return {
-                
-            }
-        },
         methods: {
             openWikiChange: function (value) {
                 ipcRenderer.send('config:change', 'openWikiOnStart', this.$parent.config.openWikiOnStart);

@@ -1,9 +1,9 @@
 <template>
-    <div class='wiki-files'>
+    <div class='wiki-files justify-content-centermy-1 row'>
         <h3>Wiki files
-        <b-btn size="sm" :variant="'success'" v-b-modal.addWikiModal>+</b-btn>
-        </h3>
-        <b-table striped hover :items="config.wikiFiles" :fields="fields">
+        <b-btn size="sm" :variant="'success'" v-b-modal.addWikiModal class="bigger">+</b-btn>
+        </h3><br/>
+        <b-table striped bordered hover :items="config.wikiFiles" :fields="fields">
             <template slot="file" scope="item">
                 {{ item.item }}
             </template>
@@ -17,7 +17,7 @@
                 </b-btn>
             </template>
             <template slot="remove" scope="item">
-                <b-btn size="sm" v-bind:variant="'danger'" @click="remove(item)">-</b-btn>
+                <b-btn size="sm" v-bind:variant="'danger'" @click="remove(item)" class="bigger">-</b-btn>
             </template>
         </b-table>
 
@@ -37,6 +37,11 @@
         width: 50%;
         height: 100%;
         padding: 10px 0;
+        float: left;
+    }
+
+    .bigger {
+        width: 58px;
     }
 </style>
 
