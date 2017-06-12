@@ -1,6 +1,6 @@
 'use strict';
 
-const { app, Tray, Menu } = require('electron');
+const { app, Tray, Menu, dialog } = require('electron');
 const path = require('path');
 
 const config = require('./Configuration').getConfig();
@@ -9,7 +9,8 @@ const config = require('./Configuration').getConfig();
 /**
  * @class TrayIcon
  * 
- * The tray icon with dynamic context menu
+ * The tray icon. Main entry point of twdesktop.
+ * Allows access to all registered wikis and settings.
  */
 class TrayIcon {
 
@@ -17,14 +18,48 @@ class TrayIcon {
      * @constructor
      */
     constructor() {
-        this.icon = '/../icons/tiddlycat_light.png';
-        if (config.darkTrayIcon === true) {
-            this.icon = '/../icons/tiddlycat_dark.png';
-        }
-        this.tray = new Tray(path.normalize(__dirname + this.icon));
+        let me = this;
+        this.tray = null;
+
+        this.initializeTray();
+        
+        this.tray.on('click', me.openDefaultWiki);        
+    }
+
+    /**
+     * @method
+     * Initialize the tray icon
+     */
+    initializeTray() {
+        this.tray = new Tray(path.normalize(__dirname + '/../icons/tiddlycat_light.png'));
+        this.setIcon();
         this.tray.setToolTip('TiddlyWiki Desktop');
 
         this.setContextMenu();
+    }
+
+    /**
+     * @method
+     * Update the tray contextmenu and icon
+     */
+    update() {
+        if (this.tray === null) {
+            return;
+        }
+        this.setContextMenu();
+        this.setIcon();
+    }
+
+    /**
+     * @method
+     * Set the icon of the tray
+     */
+    setIcon() {
+        let icon = '/../icons/tiddlycat_light.png';
+        if (config.darkTrayIcon === true) {
+            icon = '/../icons/tiddlycat_dark.png';
+        }
+        this.tray.setImage(path.normalize(__dirname + icon));
     }
 
     /**
@@ -79,28 +114,31 @@ class TrayIcon {
                     }
                 }
             });
-
-            if (wikiWindow.getLabel() === config.defaultWiki) {
-                this._setDefaultWiki(wikiWindow);
-            }
         }
         return wikis;
     }
 
-    /** 
+    /**
      * @method
-     * Set listener for the default wiki. Simple click on tray icon opens and closes it
-     * 
-     * @private
+     * Show hide the default wiki on left click on tray icon
      */
-    _setDefaultWiki(wikiWindow) {
-        this.tray.on('click', function () {
-            if (wikiWindow.getWindow().isVisible() === true) {
-                wikiWindow.hide();
-            } else {
-                wikiWindow.show();
-            }
-        });
+    openDefaultWiki() {
+        let defaultWiki = app.wikis[config.defaultWiki];
+
+        if (defaultWiki === undefined) {
+            dialog.showMessageBox({
+                title: 'No default wiki',
+                message: 'You haven\'t defined a default wiki or the settings are wrong. Please do so in the settings.',
+                type: 'info'
+            });
+            return;
+        }
+        
+        if (defaultWiki.getWindow().isVisible() === true) {
+            defaultWiki.hide();
+        } else {
+            defaultWiki.show();
+        }
     }
 }
 
