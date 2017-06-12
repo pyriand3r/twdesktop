@@ -18,6 +18,7 @@ class SettingsWindow {
      *@return {BrowserWindow}
      */
     getWindow() {
+        let me = this;
         if (this.window === null) {
             this.window = new BrowserWindow({
                 show: false,
@@ -28,6 +29,10 @@ class SettingsWindow {
 
             });
             this.window.loadURL('file://' + __dirname + '/../renderer/settings/index.html');
+
+            this.window.on('close', function () {
+                me.window = null;
+            });
         }
         return this.window;
     }
