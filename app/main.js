@@ -54,6 +54,12 @@ app.on('ready', function () {
     app.wikiManager = new WikiManager();
     app.trayIcon = new TrayIcon();
     app.settings = new SettingsWindow();
+
+    let config = Configuration.getConfig();
+
+    if (config.openDefaultOnStart === true) {
+        app.wikiManager.getWikiByName(config.defaultWiki).show();
+    }
 });
 
 
