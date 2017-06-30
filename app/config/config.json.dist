@@ -1,7 +1,7 @@
 {
     "wikiFiles": [],
     "darkTrayIcon": false,
-    "openWikiOnStart": false,
+    "openDefaultOnStart": false,
     "hideOnClose": false,
     "openLinksExternal": true,
     "defaultWiki": ""

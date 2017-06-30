@@ -1,7 +1,7 @@
 <template>
     <div class="settings">
         <h3>Behaviour</h3>
-        <b-form-checkbox v-model="config.openWikiOnStart" @change="openWikiChange">
+        <b-form-checkbox v-model="config.openDefaultOnStart" @change="openDefaultChange">
             Open default wiki on start
         </b-form-checkbox><br/>
         <b-form-checkbox v-model="config.hideOnClose" @change="hideOnCloseChange">
@@ -32,8 +32,8 @@
     export default {
         props: [ 'config' ],
         methods: {
-            openWikiChange: function (value) {
-                ipcRenderer.send('config:change', 'openWikiOnStart', this.$parent.config.openWikiOnStart);
+            openDefaultChange: function (value) {
+                ipcRenderer.send('config:change', 'openDefaultOnStart', this.$parent.config.openDefaultOnStart);
             },
             hideOnCloseChange: function (value) {
                 ipcRenderer.send('config:change', 'hideOnClose', this.$parent.config.hideOnClose);
