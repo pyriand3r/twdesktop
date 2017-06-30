@@ -46,13 +46,14 @@ class Configuration {
     setConfigKey(key, value) {
         let config = this.getConfig();
         if (!config.hasOwnProperty(key)) {
-            throw new Error('Key ' + key + ' is not present in current configuraiton.');
+            throw new Error('Key ' + key + ' is not present in current configuration.');
         }
 
         config[key] = value;
         this._persistConfig(config);
 
         app.trayIcon.update();
+        app.wikiManager.update();
     }
 
     /**

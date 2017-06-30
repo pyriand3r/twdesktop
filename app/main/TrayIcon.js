@@ -22,8 +22,8 @@ class TrayIcon {
         this.tray = null;
 
         this.initializeTray();
-        
-        this.tray.on('click', me.openDefaultWiki);        
+
+        this.tray.on('click', me.openDefaultWiki);
     }
 
     /**
@@ -46,7 +46,6 @@ class TrayIcon {
         if (this.tray === null) {
             return;
         }
-        this.setContextMenu();
         this.setIcon();
     }
 
@@ -66,8 +65,10 @@ class TrayIcon {
      * @method
      * Set the context menu of the tray icon
      */
-    setContextMenu() {
-        let wikis = this._getWikiEntries();
+    setContextMenu(wikis) {
+        if (!Array.isArray(wikis)) {
+            wikis = [];
+        }
         wikis.push({
             type: 'separator'
         });
@@ -95,50 +96,11 @@ class TrayIcon {
 
     /**
      * @method
-     * Return list of menu entries for every single registered wiki file
-     * 
-     * @private
-     */
-    _getWikiEntries() {
-        let wikis = [];
-
-        for (let i = 0; i < app.wikis.length; i++) {
-            let wikiWindow = app.wikis[i];
-            wikis.push({
-                label: wikiWindow.getLabel(),
-                click: function () {
-                    if (wikiWindow.getWindow().isVisible() === true) {
-                        wikiWindow.hide();
-                    } else {
-                        wikiWindow.show();
-                    }
-                }
-            });
-        }
-        return wikis;
-    }
-
-    /**
-     * @method
      * Show hide the default wiki on left click on tray icon
      */
     openDefaultWiki() {
-        let defaultWiki = app.wikis[config.defaultWiki];
-
-        if (defaultWiki === undefined) {
-            dialog.showMessageBox({
-                title: 'No default wiki',
-                message: 'You haven\'t defined a default wiki or the settings are wrong. Please do so in the settings.',
-                type: 'info'
-            });
-            return;
-        }
-        
-        if (defaultWiki.getWindow().isVisible() === true) {
-            defaultWiki.hide();
-        } else {
-            defaultWiki.show();
-        }
+        app.wikiManager.toggleDefault();
+        return;
     }
 }
 

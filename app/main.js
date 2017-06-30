@@ -25,10 +25,9 @@ winston.configure({
 });
 
 const Configuration = require('./main/Configuration');
-const WikiWindow = require('./main/WikiWindow');
 const TrayIcon = require('./main/TrayIcon')
-const config = Configuration.getConfig();
 const SettingsWindow = require('./main/SettingsWindow');
+const WikiManager = require('./main/WikiManager');
 
 /**
  * Trigger for keeping windows hidden on close but be able
@@ -52,22 +51,8 @@ app.on('ready', function () {
 
     Configuration.initializeDataDirectory();
 
-    app.wikis = [];
-
-    let wikiFiles = config.wikiFiles;
-    for (let i = 0; i < wikiFiles.length; i++) {
-        try {
-            let wikiWindow = new WikiWindow(wikiFiles[i], i);
-            app.wikis.push(wikiWindow);
-        } catch (error) {
-            winston.log('error', 'Wiki could not be added', {
-                wikiFile: wikiFiles[i],
-                error: error.message
-            });
-        }
-    }
-
     app.trayIcon = new TrayIcon();
+    app.wikiManager = new WikiManager();
     app.settings = new SettingsWindow();
 });
 
