@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const { ipcMain, app } = require('electron');
 
 const Configuration = require('./Configuration.js');
 const WikiWindow = require('./WikiWindow');
@@ -59,10 +58,6 @@ class WikiManager {
         this._removeOld(config);
         this._checkNew(config);
         this.default = config.defaultWiki;
-
-        let trayEntries = this._getTrayEntries();
-
-        app.trayIcon.setContextMenu(trayEntries);
     }
 
     /**
@@ -134,7 +129,7 @@ class WikiManager {
      * 
      * @return {[]}
      */
-    _getTrayEntries() {
+    getTrayEntries() {
         let me = this;
         let wikis = [];
 

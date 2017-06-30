@@ -24,6 +24,8 @@ class TrayIcon {
         this.initializeTray();
 
         this.tray.on('click', me.openDefaultWiki);
+
+        this.update();
     }
 
     /**
@@ -47,6 +49,7 @@ class TrayIcon {
             return;
         }
         this.setIcon();
+        this.setContextMenu(app.wikiManager.getTrayEntries());
     }
 
     /**

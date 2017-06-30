@@ -9,10 +9,10 @@
             </template>
             <template slot="default" scope="item">
                 <b-btn 
-                    v-if="item.index != config.defaultWiki"
+                    v-if="notDefault(item.item)"
                     size="sm" 
                     v-bind:variant="'secondary'" 
-                    @click="setDefault(item)">
+                    @click="setDefault(item.item)">
                         set default
                 </b-btn>
             </template>
@@ -71,21 +71,55 @@
         },
         methods: {
             /**
+             * @method
+             * Return name calculated from file path
+             * 
+             * @param {string} item The path of the wiki file
+             * 
+             * @return {string} The name of the wiki
+             */
+            _pathToName(item) {
+                let name = item.split('/');
+                name = name.pop();
+                name = name.split('.');
+                return name[0];
+            },
+            /**
+             * @method
+             * Check if item is not the default item
+             * 
+             * @param {string} item The path of the wiki file
+             * 
+             * @return {bool} Is not default?
+             */
+            notDefault: function (item) {
+                
+                let name = this._pathToName(item);
+                return name !== this.config.defaultWiki;
+            },
+            /**
+             * @method
              * Set the default wiki file
+             * 
+             * @param {string} item The path of the wiki file
              */
             setDefault: function (item) {
-                this.$parent.config.defaultWiki = item.index;
+                this.$parent.config.defaultWiki = this._pathToName(item);
                 ipcRenderer.send('config:change', 'defaultWiki', this.$parent.config.defaultWiki);
 
             },
             /**
+             * @method
              * Remove the wiki file from the list
+             * 
+             * @param {{}} item The wiki item
              */
             remove: function (item) {
                 this.$parent.config.wikiFiles.splice(item.index, 1);
                 ipcRenderer.send('config:change', 'wikiFiles', this.$parent.config.wikiFiles);
             },
             /**
+             * @method
              * add a new wiki file
              */
             addFile: function () {
@@ -95,6 +129,7 @@
                 }
             },
             /**
+             * @method
              * Clear the file input
              */
             clearFile: function () {

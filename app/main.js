@@ -51,8 +51,8 @@ app.on('ready', function () {
 
     Configuration.initializeDataDirectory();
 
-    app.trayIcon = new TrayIcon();
     app.wikiManager = new WikiManager();
+    app.trayIcon = new TrayIcon();
     app.settings = new SettingsWindow();
 });
 
