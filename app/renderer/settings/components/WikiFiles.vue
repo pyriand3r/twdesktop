@@ -1,8 +1,8 @@
 <template>
-    <div class='wiki-files justify-content-centermy-1 row'>
+    <div class='wiki-files'>
         <h3>Wiki files
         <b-btn size="sm" :variant="'success'" v-b-modal.addWikiModal class="bigger">+</b-btn>
-        </h3><br/>
+        </h3><br>
         <b-table striped bordered hover :items="config.wikiFiles" :fields="fields">
             <template slot="file" scope="item">
                 {{ item.item }}

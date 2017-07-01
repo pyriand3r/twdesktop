@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div>
         <wiki-files
             :config="config">
         </wiki-files>

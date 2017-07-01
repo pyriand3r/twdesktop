@@ -29,6 +29,7 @@ class SettingsWindow {
                 width: 1000,
                 height: 500,
                 autoHideMenuBar: true,
+                resizable: false,
                 title: 'twdesktop - Settings'
 
             });
