@@ -58,7 +58,7 @@ app.on('ready', function () {
     let config = Configuration.getConfig();
 
     if (config.openDefaultOnStart === true) {
-        app.wikiManager.getWikiByName(config.defaultWiki).show();
+        app.wikiManager.toggleDefault();
     }
 });
 
