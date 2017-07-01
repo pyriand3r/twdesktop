@@ -23,17 +23,6 @@ class WikiManager {
 
     /**
      * @method
-     * Return the wikiWindow instance or undefined
-     * 
-     * @param {string} name 
-     * @return {WikiWindow|undefined}
-     */
-    getWikiByName(name) {
-        return this.wikis[name];
-    }
-
-    /**
-     * @method
      * Show/Hide default wiki
      */
     toggleDefault() {
@@ -47,7 +36,6 @@ class WikiManager {
      * @param {String} name 
      */
     toggleWikiByName(name) {
-        console.log(name);
         if (this.wikis[name] === undefined) {
             throw new Error('Wiki ' + name + ' can not be found.');
         }
