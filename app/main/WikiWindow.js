@@ -39,7 +39,7 @@ class WikiWindow {
         let me = this;
         if (this.window === null) {
             this.window = new BrowserWindow({
-                show: config.openWikiOnStart,
+                show: false,
                 width: 1410,
                 height: 768,
                 title: 'twdesktop - ' + this.label,
@@ -94,7 +94,14 @@ class WikiWindow {
      * Hide the window
      */
     hide() {
-        this.getWindow().hide();
+        if (this.window !== null) {
+            this.getWindow().hide();
+
+            if (config.hideOnClose === false || app.onQuit === true) {
+                this.window.destroy();
+                this.window = null;
+            }
+        }
     }
 
     /**
@@ -126,12 +133,8 @@ class WikiWindow {
     _registerCloseListener() {
         var me = this;
         this.window.on('close', function (event) {
-            if (config.hideOnClose === true && app.onQuit === false) {
-                event.preventDefault();
-                me.hide();
-            } else {
-                me.window = null;
-            }
+            event.preventDefault();
+            me.hide();
         });
     }
 
@@ -170,36 +173,11 @@ class WikiWindow {
      * @private
      */
     _handleRedirect(event, url) {
-        console.log(event);
         if (url != this.window.webContents.getURL()) {
             event.preventDefault()
             shell.openExternal(url)
         }
 
-    }
-
-    /**
-     * @method
-     * Show the window
-     */
-    show() {
-        this.getWindow().show();
-    }
-
-    /**
-     * @method
-     * Hide the window
-     */
-    hide() {
-        this.getWindow().hide();
-    }
-
-    /**
-     * @method
-     * Return the label
-     */
-    getLabel() {
-        return this.label;
     }
 }
 
