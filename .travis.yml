@@ -21,7 +21,7 @@ addons:
     - icnsutils
 before_install:
 - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install --no-install-recommends -y icnsutils graphicsmagick xz-utils; fi
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository ppa:ubuntu-wine/ppa; sudo apt-get update; sudo apt-get install wine1.8; fi
+- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-key add https://dl.winehq.org/wine-builds/Release.key; sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'; sudo apt-get update; sudo apt-get install wine; fi
 install:
 - nvm install 6
 - npm run installdeps
