@@ -4,7 +4,7 @@ echo "Building on ${TRAVIS_OS_NAME}"
 
 if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
     echo "Building win and linux packages"
-    npm run build:wl
+    docker run -t --rm -v ${PWD}:/project electronuserland/electron-builder:wine npm run build:wl
 fi
 
 if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
