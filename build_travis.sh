@@ -1,7 +1,13 @@
 #!/bin/sh
 
-if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+echo "Building on ${TRAVIS_OS_NAME}"
+
+if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+    echo "Building win and linux packages"
     npm run build:wl
-else if [ "$TRAVIS_OS_NAME" == "darwin" ]; then
+fi
+
+if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+    echo "Building osx package"
     npm run build:osx
 fi
