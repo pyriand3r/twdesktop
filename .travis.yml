@@ -31,4 +31,4 @@ install:
 - npm run pre-build
 - npm prune
 script:
-- npm run build
+- ./build_travis.sh
