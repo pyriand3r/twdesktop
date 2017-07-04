@@ -23,3 +23,9 @@ install:
 - npm prune
 script:
 - ./build_travis.sh
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $gh
+  on:
+    branch: develop

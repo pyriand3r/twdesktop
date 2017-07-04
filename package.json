@@ -40,7 +40,11 @@
     "linux": {
       "category": "Utility",
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb",
+        "rpm",
+        "snap",
+        "tar.gz"
       ]
     },
     "win": {
