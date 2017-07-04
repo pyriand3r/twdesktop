@@ -18,7 +18,7 @@
     "build:win": "build --win --x64 --ia32",
     "build:lin": "build --linux --x64",
     "build": "build -wlm --x64 --ia32",
-    "build:wl": "build -wl --x64 --ia32",
+    "build:wl": "build -wl --x64",
     "pre-build": "node node_modules/webpack/bin/webpack.js",
     "installdeps": "npm install --only=dev; cd app; npm install; cd .."
   },
