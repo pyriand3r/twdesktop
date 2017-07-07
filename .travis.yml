@@ -1,0 +1,31 @@
+osx_image: xcode8.3
+language: javascript
+sudo: required
+dist: trusty
+services:
+  - docker
+matrix:
+  include:
+  - os: osx
+  - os: linux
+    env: CC=clang CXX=clang++ npm_config_clang=1
+    compiler: clang
+cache:
+  directories:
+  - node_modules
+  - app/node_modules
+  - "$HOME/.electron"
+  - "$HOME/.cache"
+install:
+- nvm install 6
+- npm run installdeps
+- npm run pre-build
+- npm prune
+script:
+- ./build_travis.sh
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $gh
+  on:
+    branch: develop

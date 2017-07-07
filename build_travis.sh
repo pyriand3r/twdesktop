@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Building on ${TRAVIS_OS_NAME}"
+
+if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+    echo "Building win and linux packages"
+    docker run -t --rm -v ${PWD}:/project electronuserland/electron-builder:wine npm run build:wl
+fi
+
+if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+    echo "Building osx package"
+    npm run build:osx
+fi
