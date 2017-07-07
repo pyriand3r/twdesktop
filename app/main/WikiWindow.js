@@ -19,7 +19,7 @@ class WikiWindow {
      * @param {string} path The file path of the wiki file
      */
     constructor(file, id) {
-        if (!fs.existsSync(file)) {
+        if (!fs.existsSync(path.normalize(file))) {
             throw new Error('File >' + file + '< can not be accessed');
         }
 

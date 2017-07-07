@@ -4,6 +4,7 @@ const { app, ipcMain } = require('electron');
 const fs = require('fs');
 const fse = require('fs-extra');
 const logger = require('winston');
+const path = require('path');
 
 const CONFIG_PATH = 'twdesktop';
 const CONFIG_FILE_NAME = 'config.json';
@@ -66,7 +67,7 @@ class Configuration {
      * @return {string}
      */
     _getDataPath() {
-        return app.getPath('appData') + '/' + CONFIG_PATH;
+        return path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
     }
 
     /**
@@ -77,8 +78,7 @@ class Configuration {
      */
     _getConfiguration() {
         logger.debug('No config set. fetching...');
-        this.config = require(this._getDataPath() + '/' + CONFIG_FILE_NAME);
-        logger.debug(this.config);
+        this.config = require(path.normalize(this._getDataPath() + '/' + CONFIG_FILE_NAME));
     }
 
     /**
@@ -86,25 +86,25 @@ class Configuration {
      * initializes the config folder for user configuration
      */
     initializeDataDirectory() {
-        let path = app.getPath('appData') + '/' + CONFIG_PATH;
+        let path = path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
 
         if (!fs.existsSync(path)) {
             fs.mkdirSync(path);
         }
-        if (!fs.existsSync(path + '/' + CONFIG_FILE_NAME)) {
+        if (!fs.existsSync(path.normalize(path + '/' + CONFIG_FILE_NAME))) {
             fse.copySync(
-                app.getAppPath() + '/config/' + CONFIG_DIST_FILE_NAME,
-                path + '/' + CONFIG_FILE_NAME
+                path.normalize(app.getAppPath() + '/config/' + CONFIG_DIST_FILE_NAME),
+                path.normalize(path + '/' + CONFIG_FILE_NAME)
             );
         }
-        if (!fs.existsSync(path + '/' + DEFAULT_WIKI_FILE_NAME)) {
+        if (!fs.existsSync(path.normalize(path + '/' + DEFAULT_WIKI_FILE_NAME))) {
             fse.copySync(
-                app.getAppPath() + '/config/' + DEFAULT_WIKI_FILE_NAME,
-                path + '/' + DEFAULT_WIKI_FILE_NAME
+                path.normalize(app.getAppPath() + '/config/' + DEFAULT_WIKI_FILE_NAME),
+                path.normalize(path + '/' + DEFAULT_WIKI_FILE_NAME)
             );
         }
-        if (!fs.existsSync(path + '/' + LOG_FILE_NAME)) {
-            fs.closeSync(fs.openSync(path + '/' + LOG_FILE_NAME, 'w'));
+        if (!fs.existsSync(path.normalize(path + '/' + LOG_FILE_NAME))) {
+            fs.closeSync(fs.openSync(path.normalize(path + '/' + LOG_FILE_NAME, 'w')));
         }
     }
 
@@ -117,7 +117,7 @@ class Configuration {
      */
     _persistConfig(config) {
         let stringified = JSON.stringify(config, null, '\t');
-        fs.writeFile(this._getDataPath() + '/' + CONFIG_FILE_NAME, stringified, 'utf8', function (err) {
+        fs.writeFile(path.normalize(this._getDataPath() + '/' + CONFIG_FILE_NAME), stringified, 'utf8', function (err) {
             if (err) {
                 return err;
             }
