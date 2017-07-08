@@ -22,11 +22,10 @@ install:
 - npm run pre-build
 - npm prune
 script:
+- sonar-scanner
 - ./build_travis.sh
 addons:
   sonarcloud:
     organization: pyriand3r-github
     token:
       secure: $sonarcloud
-script:
-  - sonar-scanner
