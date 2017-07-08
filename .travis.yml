@@ -23,9 +23,10 @@ install:
 - npm prune
 script:
 - ./build_travis.sh
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $gh
-  on:
-    branch: develop
+addons:
+  sonarcloud:
+    organization: pyriand3r-github
+    token:
+      secure: $sonarcloud
+script:
+  - sonar-scanner

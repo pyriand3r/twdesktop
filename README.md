@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pyriand3r/twdesktop.svg?branch=master)](https://travis-ci.org/pyriand3r/twdesktop)
+
 # twdesktop
 
 twdesktop is a desktop app to provide a convenient way to access your [tiddly wikis](http://www.tiddlywiki.com) in one click (well, okay two to be honest).
