@@ -31,4 +31,4 @@ addons:
   sonarcloud:
     organization: "pyriand3r-github"
     token:
-      secure: "${sonarcloud}"
+      secure: "${SONAR_TOKEN}"
