@@ -16,6 +16,9 @@ cache:
   - app/node_modules
   - "$HOME/.electron"
   - "$HOME/.cache"
+  - '$HOME/.sonar/cache'
+jdk:
+  - oraclejdk8
 install:
 - nvm install 6
 - npm run installdeps
@@ -26,6 +29,6 @@ script:
 - ./build_travis.sh
 addons:
   sonarcloud:
-    organization: pyriand3r-github
+    organization: "pyriand3r-github"
     token:
-      secure: $sonarcloud
+      secure: "${sonarcloud}"
