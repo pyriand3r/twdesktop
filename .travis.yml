@@ -17,8 +17,6 @@ cache:
   - "$HOME/.electron"
   - "$HOME/.cache"
   - '$HOME/.sonar/cache'
-jdk:
-  - oraclejdk8
 install:
 - nvm install 6
 - npm run installdeps
