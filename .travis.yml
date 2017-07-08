@@ -30,3 +30,6 @@ addons:
     organization: "pyriand3r-github"
     token:
       secure: "${SONAR_TOKEN}"
+    branches:
+      - master
+      - develop
