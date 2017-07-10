@@ -33,3 +33,13 @@ addons:
     branches:
       - master
       - develop
+deploy:
+  provider: releases
+  api_key: "${gh}"
+  file_glob: true
+  file: "dist/*"
+  overwrite: true
+  skip_cleanup: true
+  on:
+    tags: true
+  before_deploy: npm run clean
