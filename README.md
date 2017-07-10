@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/pyriand3r/twdesktop.svg?branch=master)](https://travis-ci.org/pyriand3r/twdesktop)
+[![Build Status](https://travis-ci.org/pyriand3r/twdesktop.svg?branch=master)](https://travis-ci.org/pyriand3r/twdesktop) 
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=pyriand3r.twdesktop%3Adevelop)](https://sonarcloud.io/dashboard?id=pyriand3r.twdesktop%3Adevelop)
 
 # twdesktop
 
