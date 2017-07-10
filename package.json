@@ -14,8 +14,8 @@
     "pack:win": "build --dir --win --x64",
     "pack:linux": "build --dir --linux --x64",
     "pack": "build --dir",
-    "build:osx": "build --mac",
-    "build:wl": "build -wl --x64",
+    "build:osx": "build --mac; npm run clean",
+    "build:wl": "build -wl --x64; npm run clean",
     "pre-build": "node node_modules/webpack/bin/webpack.js",
     "installdeps": "npm install --only=dev; cd app; npm install; cd .."
   },
