@@ -35,11 +35,13 @@ addons:
       - develop
 deploy:
   provider: releases
-  api_key: "${gh}"
+  api_key:
+    secure: "${gh}"
   file_glob: true
-  file: "dist/*"
+  file: dist/*
   overwrite: true
   skip_cleanup: true
   on:
     tags: true
-  before_deploy: npm run clean
+  before_deploy: 
+  - npm run clean
