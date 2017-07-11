@@ -86,25 +86,25 @@ class Configuration {
      * initializes the config folder for user configuration
      */
     initializeDataDirectory() {
-        let path = path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
+        let configPath = path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
 
-        if (!fs.existsSync(path)) {
-            fs.mkdirSync(path);
+        if (!fs.existsSync(configPath)) {
+            fs.mkdirSync(configPath);
         }
-        if (!fs.existsSync(path.normalize(path + '/' + CONFIG_FILE_NAME))) {
+        if (!fs.existsSync(path.normalize(configPath + '/' + CONFIG_FILE_NAME))) {
             fse.copySync(
                 path.normalize(app.getAppPath() + '/config/' + CONFIG_DIST_FILE_NAME),
-                path.normalize(path + '/' + CONFIG_FILE_NAME)
+                path.normalize(configPath + '/' + CONFIG_FILE_NAME)
             );
         }
-        if (!fs.existsSync(path.normalize(path + '/' + DEFAULT_WIKI_FILE_NAME))) {
+        if (!fs.existsSync(path.normalize(configPath + '/' + DEFAULT_WIKI_FILE_NAME))) {
             fse.copySync(
                 path.normalize(app.getAppPath() + '/config/' + DEFAULT_WIKI_FILE_NAME),
-                path.normalize(path + '/' + DEFAULT_WIKI_FILE_NAME)
+                path.normalize(configPath + '/' + DEFAULT_WIKI_FILE_NAME)
             );
         }
-        if (!fs.existsSync(path.normalize(path + '/' + LOG_FILE_NAME))) {
-            fs.closeSync(fs.openSync(path.normalize(path + '/' + LOG_FILE_NAME, 'w')));
+        if (!fs.existsSync(path.normalize(configPath + '/' + LOG_FILE_NAME))) {
+            fs.closeSync(fs.openSync(path.normalize(configPath + '/' + LOG_FILE_NAME, 'w')));
         }
     }
 
