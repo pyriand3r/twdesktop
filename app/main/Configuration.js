@@ -53,7 +53,7 @@ class Configuration {
         config[key] = value;
         this._persistConfig(config);
 
-        if (key === 'wikiFiles') {
+        if (key === 'wikiFiles' || key === 'defaultWiki') {
             app.wikiManager.update();
         }
         app.trayIcon.update();
