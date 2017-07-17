@@ -7,7 +7,7 @@
     "dev": "export NODE_ENV=development; electron app/main.js",
     "start": "electron app/main.js",
     "test": "mocha --recursive",
-    "test:reports": "nyc --reporter lcov mocha --recursive --reporter xunit --reporter-options output=xunit.xml",
+    "test:reports": "nyc --reporter lcov mocha --recursive --reporter xunit --reporter-options output=reports/xunit.xml",
     "clean:linux": "rimraf dist/linux*",
     "clean:osx": "rimraf dist/mac",
     "clean:win": "rimraf dist/win*",
