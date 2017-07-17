@@ -127,21 +127,4 @@ class Configuration {
 
 let Config = new Configuration();
 
-/**
- * @listener
- * Return the configuration
- */
-ipcMain.on('config:get', function (event) {
-    event.returnValue = Config.getConfig();
-});
-
-/**
- * @listener
- * Persist a configuration change made in the GUI
- */
-ipcMain.on('config:change', function (event, key, value) {
-    logger.log('debug', 'changing config', { key: key, value: value });
-    Config.setConfigKey(key, value);
-});
-
 module.exports = Config;

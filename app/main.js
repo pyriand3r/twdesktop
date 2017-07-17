@@ -29,6 +29,8 @@ const TrayIcon = require('./main/TrayIcon')
 const SettingsWindow = require('./main/SettingsWindow');
 const WikiManager = require('./main/WikiManager');
 
+require('./main/ConfigListener');
+
 /**
  * Trigger for keeping windows hidden on close but be able
  * to close them on app shutdown
