@@ -1,4 +1,0 @@
-<testsuite name="Mocha Tests" tests="2" failures="0" errors="0" skipped="0" timestamp="Mon, 17 Jul 2017 11:42:26 GMT" time="0.021">
-<testcase classname="WikiWindow constructor" name="should fail if path to file is wrong" time="0.001"/>
-<testcase classname="WikiWindow constructor" name="should set id, filepath and label" time="0"/>
-</testsuite>
