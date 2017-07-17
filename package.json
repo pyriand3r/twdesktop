@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "export NODE_ENV=development; electron app/main.js",
     "start": "electron app/main.js",
-    "test": "./node_modules/mocha/bin/mocha --recursive",
+    "test": "mocha --recursive",
+    "test:reports": "nyc --reporter lcov mocha --recursive --reporter xunit --reporter-options output=xunit.xml",
     "clean:linux": "rimraf dist/linux*",
     "clean:osx": "rimraf dist/mac",
     "clean:win": "rimraf dist/win*",
@@ -75,6 +76,7 @@
     "electron-builder": "^17.1.2",
     "file-loader": "^0.11.2",
     "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
     "sinon": "^2.3.8",
     "spectre.css": "^0.2.14",
     "style-loader": "^0.18.1",

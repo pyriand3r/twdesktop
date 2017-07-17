@@ -23,6 +23,7 @@ install:
 - npm run pre-build
 - npm prune
 script:
+- npm run test:reports
 - sonar-scanner
 - ./build_travis.sh
 addons:
