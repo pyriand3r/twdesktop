@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/pyriand3r/twdesktop.svg?branch=master)](https://travis-ci.org/pyriand3r/twdesktop) 
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=pyriand3r.twdesktop%3Adevelop)](https://sonarcloud.io/dashboard?id=pyriand3r.twdesktop%3Adevelop)
+[![Code Coverage](https://sonarcloud.io/api/badges/measure?key=pyriand3r.twdesktop%3Adevelop&metric=coverage)](https://sonarcloud.io/dashboard?id=pyriand3r.twdesktop%3Adevelop)
 
 # twdesktop
 
@@ -20,7 +21,8 @@ Right now only tiddlywiki5 is supported.
 [x] Create tray contextmenu entry for every registered wiki (show/hide)  
 [x] Define default wiki (show/hide on left-click of tray icon)  
 [x] Change color of tray icon (light/dark)  
-[x] Keep wiki open in background (instead of closing it completely)  
+[x] Keep wiki open in background (instead of closing it completely)
+[x] Config-changes take place immediatly
 
 ## Planned features
 
