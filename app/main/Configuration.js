@@ -50,6 +50,10 @@ class Configuration {
             throw new Error('Key ' + key + ' is not present in current configuration.');
         }
 
+        if (key === 'defaultWiki' && process.platform === 'win32') {
+            value = path.basename(value, 'html');
+        }
+
         config[key] = value;
         this._persistConfig(config);
 
