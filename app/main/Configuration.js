@@ -53,7 +53,7 @@ class Configuration {
         config[key] = value;
         this._persistConfig(config);
 
-        if (key === 'wikiFiles') {
+        if (key === 'wikiFiles' || key === 'defaultWiki') {
             app.wikiManager.update();
         }
         app.trayIcon.update();
@@ -86,6 +86,7 @@ class Configuration {
      * initializes the config folder for user configuration
      */
     initializeDataDirectory() {
+        console.log('initializeDataDirectory');
         let configPath = path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
 
         if (!fs.existsSync(configPath)) {
@@ -104,7 +105,7 @@ class Configuration {
             );
         }
         if (!fs.existsSync(path.normalize(configPath + '/' + LOG_FILE_NAME))) {
-            fs.closeSync(fs.openSync(path.normalize(configPath + '/' + LOG_FILE_NAME, 'w')));
+            fs.closeSync(fs.openSync(path.normalize(configPath + '/' + LOG_FILE_NAME), 'w'));
         }
     }
 
