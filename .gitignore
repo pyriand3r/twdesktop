@@ -4,3 +4,6 @@ dist
 config.js
 *.log 
 **/bundle.js
+.nyc_output
+reports
+coverage

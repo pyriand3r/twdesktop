@@ -102,7 +102,24 @@ class TrayIcon {
      * Show hide the default wiki on left click on tray icon
      */
     openDefaultWiki() {
-        app.wikiManager.toggleDefault();
+        let err = app.wikiManager.toggleDefault();
+        if (err) {
+            dialog.showMessageBox(
+                {
+                    type: 'info',
+                    buttons: [
+                        'Close',
+                        'Open settings'
+                    ],
+                    title: 'twdesktop',
+                    message: err.message,
+                },
+                function (response) {
+                    if (response === 1) {
+                        app.settings.show();
+                    }
+                })
+        }
         return;
     }
 }

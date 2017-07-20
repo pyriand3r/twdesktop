@@ -50,6 +50,10 @@ class Configuration {
             throw new Error('Key ' + key + ' is not present in current configuration.');
         }
 
+        if (key === 'defaultWiki' && process.platform === 'win32') {
+            value = path.basename(value, 'html');
+        }
+
         config[key] = value;
         this._persistConfig(config);
 
@@ -86,6 +90,7 @@ class Configuration {
      * initializes the config folder for user configuration
      */
     initializeDataDirectory() {
+        console.log('initializeDataDirectory');
         let configPath = path.normalize(app.getPath('appData') + '/' + CONFIG_PATH);
 
         if (!fs.existsSync(configPath)) {
@@ -104,7 +109,7 @@ class Configuration {
             );
         }
         if (!fs.existsSync(path.normalize(configPath + '/' + LOG_FILE_NAME))) {
-            fs.closeSync(fs.openSync(path.normalize(configPath + '/' + LOG_FILE_NAME, 'w')));
+            fs.closeSync(fs.openSync(path.normalize(configPath + '/' + LOG_FILE_NAME), 'w'));
         }
     }
 
@@ -126,22 +131,5 @@ class Configuration {
 }
 
 let Config = new Configuration();
-
-/**
- * @listener
- * Return the configuration
- */
-ipcMain.on('config:get', function (event) {
-    event.returnValue = Config.getConfig();
-});
-
-/**
- * @listener
- * Persist a configuration change made in the GUI
- */
-ipcMain.on('config:change', function (event, key, value) {
-    logger.log('debug', 'changing config', { key: key, value: value });
-    Config.setConfigKey(key, value);
-});
 
 module.exports = Config;

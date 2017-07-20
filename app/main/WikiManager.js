@@ -26,7 +26,10 @@ class WikiManager {
      * Show/Hide default wiki
      */
     toggleDefault() {
-        this.toggleWikiByName(this.default);
+        if (this.default === '') {
+            return new Error('No default wiki defined.')
+        }
+        return this.toggleWikiByName(this.default);
     }
 
     /**
@@ -37,7 +40,7 @@ class WikiManager {
      */
     toggleWikiByName(name) {
         if (this.wikis[name] === undefined) {
-            throw new Error('Wiki ' + name + ' can not be found.');
+            return new Error('Wiki ' + name + ' can not be found.');
         }
 
         if (this.wikis[name].getWindow().isVisible() === true) {

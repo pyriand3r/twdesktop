@@ -24,11 +24,6 @@ winston.configure({
     ]
 });
 
-const Configuration = require('./main/Configuration');
-const TrayIcon = require('./main/TrayIcon')
-const SettingsWindow = require('./main/SettingsWindow');
-const WikiManager = require('./main/WikiManager');
-
 /**
  * Trigger for keeping windows hidden on close but be able
  * to close them on app shutdown
@@ -49,7 +44,15 @@ app.on('window-all-closed', function () {
  */
 app.on('ready', function () {
 
+    const Configuration = require('./main/Configuration');
     Configuration.initializeDataDirectory();
+
+    const TrayIcon = require('./main/TrayIcon')
+    const SettingsWindow = require('./main/SettingsWindow');
+    const WikiManager = require('./main/WikiManager');
+
+    require('./main/ConfigListener');
+
 
     app.wikiManager = new WikiManager();
     app.trayIcon = new TrayIcon();
